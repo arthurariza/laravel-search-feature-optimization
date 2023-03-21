@@ -12,6 +12,8 @@ class UsersController extends Controller
     {
         $users = User::query()
             ->with('company')
+            ->orderBy('first_name')
+            ->orderBy('last_name')
             ->paginate(15)
             ->withQueryString();
 

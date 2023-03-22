@@ -38,5 +38,11 @@ class DatabaseSeeder extends Seeder
         $user->company->update([
             'name' => 'O\'Reilly Media Inc.',
         ]);
+
+        User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'company_id' => 1
+        ]);
     }
 }

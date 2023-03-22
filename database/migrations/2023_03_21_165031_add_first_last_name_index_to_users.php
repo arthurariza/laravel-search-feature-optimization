@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex('first_name');
-            $table->dropIndex('last_name');
+            $table->dropIndex('users_first_name_index');
+            $table->dropIndex('users_last_name_index');
         });
     }
 };

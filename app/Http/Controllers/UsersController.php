@@ -13,6 +13,7 @@ class UsersController extends Controller
         $users = User::query()
             ->select(['id', 'first_name', 'last_name', 'email', 'company_id'])
             ->with('company:id,name')
+            ->search(request('search'))
             ->orderBy('first_name')
             ->orderBy('last_name')
             ->paginate(15)

@@ -46,13 +46,15 @@ class User extends Authenticatable
 
     public function scopeSearch($query, string $terms = null)
     {
-        collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
-            $term = '%' . $term . '%';
+        collect(str_getcsv($terms, ' ', '"'))->filter()->each(function ($term) use ($query) {
+            $term = $term . '%';
             $query->where(function ($query) use ($term) {
                $query->where('first_name', 'like', $term)
                 ->orWhere('last_name', 'like', $term)
-                ->orWhereHas('company', function ($query) use ($term) {
-                   $query->where('name', 'like', $term);
+                ->orWhereIn('company_id', function ($query) use ($term) {
+                   $query->select('id')
+                       ->from('companies')
+                       ->where('name', 'like', $term);
                 });
             });
         });

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class UsersController extends Controller
@@ -18,6 +18,6 @@ class UsersController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return Inertia::render('Users', ['users' => $users]);
+        return Inertia::render('Users', ['users' => $users, 'filters' => Request::only(['search'])]);
     }
 }
